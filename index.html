@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+
+<!-- Title & description are set from content.js at runtime; these are fallbacks. -->
+<title>Customer Success Manager — Portfolio</title>
+<meta name="description" content="Customer Success Manager at Cornerstone OnDemand.">
+
+<!-- ==========================================================================
+     OG TAGS — the preview card shown when this link is pasted into WhatsApp,
+     LinkedIn or Slack. These CANNOT be read from content.js, because link
+     previews do not run JavaScript — so they are hand-written here. If the
+     name, description, photo or domain ever changes, change it here too.
+     ========================================================================== -->
+<meta property="og:type"        content="profile">
+<meta property="og:title"       content="Deepali Jagota — Customer Success Manager">
+<meta property="og:description" content="Customer Success Manager at Cornerstone OnDemand. Three-time Top 100 Customer Success Strategist. Consultations on customer success, careers in CS, and restarting after a career break.">
+<meta property="og:image"       content="https://deepalijagota.com/assets/img/deepali-red.webp">
+<meta property="og:url"         content="https://deepalijagota.com">
+<meta name="twitter:card"       content="summary_large_image">
+
+<link rel="canonical" href="https://deepalijagota.com/">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Draft banner — disappears when site.draftMode is set to false in content.js -->
+<div id="draft-banner" class="draft-banner" hidden>
+  <span><strong>Draft.</strong> Text in ⟨brackets⟩ and anything marked TODO is placeholder content — edit <code>content.js</code>.</span>
+  <button type="button" class="draft-banner__close" aria-label="Hide this notice">&times;</button>
+</div>
+
+<!-- ========================================================================
+     HEADER
+     ===================================================================== -->
+<header class="site-header" id="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name" data-bind="name">&nbsp;</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#services" data-nav="services">How I help</a>
+      <a href="#credentials">Achievements</a>
+      <a href="#booking">Book a session</a>
+      <a href="#connect">Connect</a>
+    </nav>
+
+    <div class="site-header__actions">
+      <button type="button" id="theme-toggle" class="icon-btn" aria-label="Switch to dark theme" title="Switch theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><g class="rays"><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></g></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.2 8.2 0 0 1 9.5 4a8.3 8.3 0 1 0 10.5 10.5z"/></svg>
+      </button>
+      <a class="btn btn--primary btn--sm header-cta" href="#booking">Book a consultation</a>
+      <button type="button" id="menu-toggle" class="icon-btn menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <span id="top"></span>
+
+  <!-- ======================================================================
+       HERO — Who am I?
+       =================================================================== -->
+  <section class="hero" id="about">
+    <div class="wrap hero__grid">
+
+      <div class="hero__text">
+        <p class="eyebrow">
+          <span data-bind="title">&nbsp;</span>
+          <span class="eyebrow__sep" data-show="company">·</span>
+          <span data-bind="company"></span>
+        </p>
+
+        <h1 class="hero__name" data-bind="name">&nbsp;</h1>
+        <p class="hero__tagline" data-bind="tagline"></p>
+
+        <div class="prose hero__bio" id="hero-bio"></div>
+
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#booking">Book a consultation</a>
+          <a class="btn btn--ghost" href="#connect">Get in touch</a>
+        </div>
+
+        <p class="hero__meta" data-show="location">
+          <svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <span data-bind="location"></span>
+        </p>
+      </div>
+
+      <div class="hero__portrait">
+        <figure class="portrait" id="portrait">
+          <img id="portrait-img" src="" alt="" loading="eager" decoding="async">
+        </figure>
+
+        <!-- Draft-mode only: flip between candidate photos to compare them. -->
+        <div class="photoswitch" id="photoswitch" hidden>
+          <span class="photoswitch__label">Compare photo</span>
+          <div class="photoswitch__btns" id="photoswitch-btns" role="group" aria-label="Choose a portrait"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <ul class="stats" id="stats" hidden></ul>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       HOW I HELP
+       =================================================================== -->
+  <section class="section section--tint" id="services" hidden>
+    <div class="wrap">
+      <header class="section__head">
+        <h2 data-bind="services.heading"></h2>
+        <p class="section__intro" data-bind="services.intro"></p>
+      </header>
+      <ul class="cards" id="services-list"></ul>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       ACHIEVEMENTS — recognition + certifications
+       =================================================================== -->
+  <section class="section" id="credentials">
+    <div class="wrap">
+      <header class="section__head">
+        <h2 data-bind="credentials.heading"></h2>
+        <p class="section__intro" data-bind="credentials.intro"></p>
+      </header>
+
+      <div class="credentials">
+        <div class="credentials__col" id="awards-col">
+          <h3 class="credentials__label">Recognition</h3>
+          <ul class="cred-list" id="awards-list"></ul>
+        </div>
+        <div class="credentials__col" id="certs-col">
+          <h3 class="credentials__label">Certifications</h3>
+          <ul class="cred-list" id="certs-list"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       BOOK A CONSULTATION + CONNECT — deliberately one section, so the
+       booking flow and the ways to reach her sit together on one screen.
+       =================================================================== -->
+  <section class="section section--tint" id="booking">
+    <div class="wrap">
+      <header class="section__head">
+        <h2 data-bind="booking.heading"></h2>
+        <p class="section__intro" data-bind="booking.intro"></p>
+      </header>
+
+      <!-- Progress rail -->
+      <ol class="steps" id="steps" aria-label="Booking progress">
+        <li class="steps__item is-current" data-step="1"><span class="steps__dot">1</span><span class="steps__label">Choose a session</span></li>
+        <li class="steps__item" data-step="2"><span class="steps__dot">2</span><span class="steps__label">Pick a time</span></li>
+        <li class="steps__item" data-step="3"><span class="steps__dot">3</span><span class="steps__label">Your details</span></li>
+        <!-- "Request sent", not "Confirmed" — she still has to accept the slot,
+             so the label must not imply the booking is already settled. -->
+        <li class="steps__item" data-step="4"><span class="steps__dot">4</span><span class="steps__label">Request sent</span></li>
+      </ol>
+
+      <!-- STEP 1 — session type -->
+      <div class="step-panel is-active" data-panel="1">
+        <ul class="packages" id="packages"></ul>
+        <p class="policy" data-bind="booking.policy"></p>
+      </div>
+
+      <!-- STEP 2 — date + slot -->
+      <div class="step-panel" data-panel="2" hidden>
+        <div class="panel">
+          <div class="panel__aside">
+            <p class="panel__kicker">Selected</p>
+            <p class="panel__pick" id="pick-name"></p>
+            <p class="panel__pickmeta" id="pick-meta"></p>
+            <button type="button" class="linkish" data-goto="1">Change session</button>
+          </div>
+
+          <div class="panel__form">
+            <!-- Built-in slot picker -->
+            <div id="slotpicker">
+              <p class="picker__label" id="date-label">Choose a date</p>
+              <div class="datestrip" id="datestrip" role="group" aria-label="Available dates"></div>
+
+              <p class="picker__label picker__label--slots">Choose a time <span class="tz" data-bind="booking.timezoneLabel"></span></p>
+              <div class="slots" id="slots" role="group" aria-label="Available times"></div>
+              <p class="slots__empty" id="slots-empty" hidden>No open times on this day — try another date.</p>
+            </div>
+
+            <!-- Used instead when a Calendly / Cal.com link is configured -->
+            <div id="scheduler" hidden></div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn--ghost" data-goto="1">Back</button>
+              <button type="button" class="btn btn--primary" id="slot-continue" aria-disabled="true">Continue</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 — details -->
+      <div class="step-panel" data-panel="3" hidden>
+        <div class="panel">
+          <div class="panel__aside">
+            <p class="panel__kicker">Selected</p>
+            <p class="panel__pick" id="pick-name-2"></p>
+            <p class="panel__pickmeta" id="pick-when"></p>
+            <button type="button" class="linkish" data-goto="2">Change time</button>
+          </div>
+
+          <!-- Netlify Forms: the `data-netlify` attribute makes Netlify record every
+               submission server-side and email Deepali, so a booking no longer
+               depends on the visitor having a working mail app. The form must be
+               real HTML here (not built by JS) for Netlify to detect it at deploy. -->
+          <form class="panel__form" id="details-form"
+                name="booking" method="POST"
+                data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+
+            <!-- Spam trap. Hidden from people, irresistible to bots; Netlify
+                 silently discards any submission where this is filled in. -->
+            <p class="sr-only" aria-hidden="true">
+              <label>Leave this field empty
+                <input name="bot-field" tabindex="-1" autocomplete="off">
+              </label>
+            </p>
+
+            <!-- Filled in by main.js just before submitting, so the recorded
+                 submission says which session and which slot was chosen. -->
+            <input type="hidden" name="session" value="">
+            <input type="hidden" name="requested-time" value="">
+            <input type="hidden" name="requested-time-utc" value="">
+
+            <div class="field">
+              <label for="f-name">Your name <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+              <p class="field__error" data-error-for="f-name"></p>
+            </div>
+
+            <div class="field">
+              <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+              <p class="field__error" data-error-for="f-email"></p>
+              <p class="field__hint">Your confirmation and calendar invite go here.</p>
+            </div>
+
+            <div class="field">
+              <label for="f-company">Company <span class="opt">optional</span></label>
+              <input id="f-company" name="company" type="text" autocomplete="organization">
+            </div>
+
+            <div class="field">
+              <label for="f-topic">What would you like to cover? <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="f-topic" name="topic" rows="4" required placeholder="A sentence or two is plenty — it helps me prepare."></textarea>
+              <p class="field__error" data-error-for="f-topic"></p>
+            </div>
+
+            <div class="field field--check">
+              <input id="f-consent" name="consent" type="checkbox" required>
+              <label for="f-consent">I'm happy to be contacted about this booking.</label>
+              <p class="field__error" data-error-for="f-consent"></p>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn--ghost" data-goto="2">Back</button>
+              <button type="submit" class="btn btn--primary">Request this slot</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- STEP 4 — confirmation -->
+      <div class="step-panel" data-panel="4" hidden>
+        <div class="panel panel--narrow">
+          <div class="done">
+            <div class="done__tick" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4.5 12.5l5 5 10-11"/></svg>
+            </div>
+            <h3 id="done-head">Your slot is held</h3>
+            <p id="done-line"></p>
+          </div>
+
+          <div class="summary" id="summary"></div>
+
+          <div class="checkout">
+            <a class="btn btn--primary btn--wide" id="ics-btn" href="#" download>Add to my calendar</a>
+            <a class="btn btn--ghost btn--wide" id="send-btn" href="#">Email the details as well</a>
+            <p class="checkout__note" id="confirm-note"></p>
+          </div>
+
+          <div class="form-actions form-actions--center">
+            <button type="button" class="linkish" data-goto="1">Book another session</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ----------------------------------------------------------------
+           CONNECT — same section, directly under the booking flow.
+           ---------------------------------------------------------------- -->
+      <div class="connect" id="connect">
+        <div class="connect__news" id="newsletter-block">
+          <h2 data-bind="newsletter.heading"></h2>
+          <p class="section__intro" data-bind="newsletter.intro"></p>
+
+          <form class="subscribe" id="subscribe-form" novalidate>
+            <div class="subscribe__row">
+              <label class="sr-only" for="f-sub">Email address</label>
+              <input id="f-sub" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com" required>
+              <button type="submit" class="btn btn--primary" id="sub-btn">Subscribe</button>
+            </div>
+            <p class="field__error" data-error-for="f-sub"></p>
+            <p class="field__hint" data-bind="newsletter.smallPrint"></p>
+            <p class="subscribe__ok" id="sub-ok" hidden>Thank you — you're on the list.</p>
+          </form>
+        </div>
+
+        <div class="connect__social">
+          <h2>Find me elsewhere</h2>
+          <p class="section__intro">The best place to reach me is LinkedIn.</p>
+          <ul class="socials" id="socials"></ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <p>&copy; <span id="year"></span> <span data-bind="name"></span>. <span data-bind="site.footerNote"></span></p>
+    <p class="site-footer__note">
+      Views are my own and do not represent <span data-bind="company">my employer</span>.
+    </p>
+  </div>
+</footer>
+
+<noscript>
+  <div class="wrap" style="padding:2rem 0">
+    <p><strong>This site needs JavaScript to display its content.</strong> Please enable it, or email directly.</p>
+  </div>
+</noscript>
+
+<script src="content.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Netlify redirect rules.
+# The bare domain is set to redirect to www in Netlify's Domain management, so
+# nothing is needed here for that. This file exists so any future redirect has
+# an obvious home — e.g. a short link for her LinkedIn bio:
+#
+#   /book    /#booking   302

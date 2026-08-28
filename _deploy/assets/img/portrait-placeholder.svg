@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" width="720" height="900" role="img" aria-label="Portrait placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F6E7DC"/>
+      <stop offset="100%" stop-color="#EBD8C6"/>
+    </linearGradient>
+    <linearGradient id="fig" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C4784F"/>
+      <stop offset="100%" stop-color="#A95B33"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="720" height="900" fill="url(#bg)"/>
+  <circle cx="560" cy="180" r="150" fill="#E3C6AC" opacity=".45"/>
+  <circle cx="130" cy="720" r="190" fill="#D9B48F" opacity=".3"/>
+
+  <g fill="url(#fig)">
+    <circle cx="360" cy="360" r="118"/>
+    <path d="M360 508c114 0 208 85 223 196 4 28-18 53-46 53H183c-28 0-50-25-46-53 15-111 109-196 223-196z"/>
+  </g>
+
+  <g font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" fill="#8A5B3C">
+    <text x="360" y="828" font-size="30">Add her photo</text>
+    <text x="360" y="866" font-size="19" fill="#A0785C" font-family="system-ui, sans-serif">assets/img/ → set person.photo in content.js</text>
+  </g>
+</svg>
