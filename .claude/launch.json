@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["serve.js", "4321"],
+      "port": 4321
+    },
+    {
+      "name": "portfolio-deploy-build",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["serve.js", "4322"],
+      "port": 4322
+    }
+  ]
+}

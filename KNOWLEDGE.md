@@ -183,6 +183,8 @@ _source-photos/          untouched originals + the two Python processors
 _deploy/                 generated publishable subset — this is what ships
 make-deploy.sh           builds _deploy
 serve.js                 local preview server (Node, no deps)
+.claude/launch.json      Claude Code preview config; relative paths only, so it
+                         works from a fresh clone on any machine
 DEPLOY.md                click-by-click go-live runbook
 README.md                maintainer guide
 KNOWLEDGE.md             this file
