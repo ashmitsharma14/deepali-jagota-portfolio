@@ -24,6 +24,10 @@ Written to be read in order the first time, and grepped afterwards.
 12. [How to verify a change](#12-how-to-verify-a-change)
 13. [Known limitations](#13-known-limitations)
 14. [Rebuilding from scratch](#14-rebuilding-from-scratch)
+15. [Accounts, ownership and access](#15-accounts-ownership-and-access)
+16. [The content of record](#16-the-content-of-record)
+17. [Common maintenance tasks](#17-common-maintenance-tasks)
+18. [Current state](#18-current-state)
 
 ---
 
@@ -49,7 +53,7 @@ index.html                360    structure only, no content
 content.js                315    ALL content — the single source of truth
 assets/js/main.js         913    rendering + booking engine
 assets/css/styles.css     663    design system
-make-deploy.sh             37    builds the publishable subset
+make-deploy.sh             45    builds the publishable subset
 serve.js                   60    local preview server
 _source-photos/make-cutout.py  86
 _source-photos/make-badge.py   74
@@ -688,6 +692,15 @@ query it.**
 **9. Netlify HTTPS push blocked.** `gh repo create --push` failed `HTTP 403` (Zscaler).
 → SSH remote.
 
+**10. `git init` leaked the whole repo into the deploy folder.** `make-deploy.sh`
+had no `.git` exclusion, so the moment the project went under version control rsync
+started copying the entire repository — full history — into `_deploy`. It went from
+16 files to 85. A manual deploy would have served `deepalijagota.com/.git/`, from
+which anyone could clone the site's complete history. Caught only because the script
+prints its file count and the number looked wrong. → `--exclude '.git'`.
+**Lesson: make the build print something you can sanity-check at a glance. The count
+is the canary — it must say 16.**
+
 ---
 
 ## 12. How to verify a change
@@ -755,3 +768,224 @@ Order that avoids rework:
 4. The booking flow must **never claim success it can't verify**, and must always
    release the visitor (timeout).
 5. Deploy `_deploy`, never the project root.
+
+---
+
+## 15. Accounts, ownership and access
+
+Four separate accounts, deliberately not linked to each other. Nothing here is a
+credential — it's a map of who owns what, which is the thing you forget in a year.
+
+| Service | Account | Holds |
+|---|---|---|
+| **GoDaddy** | *an older email of Ashmit's, not the Netlify one* | the domain registration and DNS zone |
+| **Netlify** | `2004ashmitsharma.math@gmail.com` (Google sign-in) | hosting, form submissions, TLS |
+| **GitHub** | `ashmitsharma14` | the source repo, private |
+| **Deepali** | `deepali22aug@gmail.com` | receives booking requests |
+
+Things that follow from this:
+
+- **The GoDaddy and Netlify accounts never talk to each other.** DNS records are
+  typed by hand at GoDaddy; Netlify just observes where the domain points. A
+  different email on the registrar account is not a problem and never was.
+- **Netlify sign-in is via Google**, with no password set. Access to that Google
+  account is therefore access to the site. Worth knowing before it matters.
+- **The repo is private.** It contains her photos, her email in several places, and
+  the deploy runbook. Nothing secret, but no reason to publish it either. To flip:
+  `gh repo edit ashmitsharma14/deepali-jagota-portfolio --visibility public --accept-visibility-change-consequences`
+- **Commits are authored as `96550919+ashmitsharma14@users.noreply.github.com`**, set
+  repo-locally. The global git identity on this machine is a Spinny work address,
+  which has no business on a personal project — especially if the repo ever goes
+  public, where commit emails are visible.
+
+### Machine-specific notes
+
+These are properties of the laptop this was built on, not the project:
+
+- **HTTPS git push fails with `HTTP 403`** — Zscaler intercepts it. The remote is
+  SSH, so this is already handled; it will bite on any *new* repo.
+- **`gh` is at `~/bin/gh`**, not on the default `PATH`.
+- **Netlify has no CLI installed and no stored token**, so deploys are manual drags.
+  Linking the repo (§17) removes that entirely.
+
+---
+
+## 16. The content of record
+
+`content.js` is the live source of truth. This is the human-readable copy of it, so
+the site could be reconstructed if that file were ever lost.
+
+### Identity
+
+- **Deepali Jagota** — Customer Success Manager, Cornerstone OnDemand — Delhi NCR, India
+- LinkedIn: `linkedin.com/in/deepalijagota/` · Email: `deepali22aug@gmail.com`
+- Tagline: *"I help enterprise customers turn technology into real, measurable impact."*
+
+### Bio — three paragraphs
+
+1. Role today: CSM at Cornerstone OnDemand, focused on customer experience and
+   workforce agility in the enterprise sector. Background in software project
+   management and customer success. MCM and MBA in Marketing.
+2. What the job actually is: partnering after the sale — understanding goals,
+   guiding through change, driving meaningful adoption. Working at the intersection
+   of customers, outcomes and long-term success.
+3. Beyond the accounts: India lead for the **Women at Cornerstone CRG** (engage,
+   inspire, amplify); Chapter Lead for **CS Ladies Delhi**, a non-profit community
+   for women. Mentors young professionals, particularly women. Returned to work
+   after an **eleven-year career break**.
+
+### Stats strip
+
+`3×` Top 100 CS Strategist 2022–2024 · `2` Cornerstone certifications ·
+`2` women's communities led · `11 yrs` career break, and a return to the top of the field
+
+### How I help
+
+Adoption that sticks · Guiding customers through change · Mentoring the next generation
+
+### Achievements — and the Credly mapping
+
+The personal Credly links arrived unlabelled. Each was identified by fetching the
+page and reading its `<title>` — **this mapping was genuinely hard to recover, so it
+is recorded here:**
+
+| Badge | Credly reference |
+|---|---|
+| Top 100 CS Strategist **2024** | personal badge `9f9efefa-2a78-4ad5-b321-52bcbd2ce665` |
+| Top 100 CS Strategist **2023** | SuccessCOACHING **org** page (not personal) |
+| Top 100 CS Strategist **2022** | SuccessCOACHING **org** page (not personal) |
+| Cornerstone **Learning Management Expert** | personal badge `bf15ee32-e843-4839-93a2-ec525a071417` |
+| Cornerstone **Core System Specialist** | personal badge `235f6432-52da-40be-b139-1d48080b2f15` |
+
+Personal badge URLs take the form
+`https://www.credly.com/badges/<uuid>/public_url`.
+
+**Open item:** 2022 and 2023 point at generic org pages rather than her earned
+badges. If she can find her personal links for those years, swap them in and all
+five verify to her name.
+
+### Sessions offered — all free
+
+| Session | Length | For |
+|---|---|---|
+| Customer success clinic | 30 min | one live problem — at-risk account, stalled rollout, a QBR that isn't landing |
+| Career mentoring *(featured)* | 45 min | moving into CS, or a CSM after a first lead role |
+| Restarting after a break | 45 min | returning after a long career break — her own lived experience |
+
+Availability: **Tue & Thu 19:00–21:00, Sat 10:00–13:00 IST.** 24-hour lead time,
+28-day horizon, 15-minute gap between sessions.
+
+Newsletter blurb: *"A short note each month on customer success, careers, and
+building communities where women thrive."* No provider wired up yet — the form
+falls back to opening an email.
+
+---
+
+## 17. Common maintenance tasks
+
+Every one of these is an edit to `content.js`, then `./make-deploy.sh`, then deploy.
+
+### Change her available hours
+
+```js
+booking.availability = { tue: ["19:00-21:00"], sat: ["10:00-13:00"], … }
+```
+24-hour clock, **her** timezone. Multiple windows per day allowed:
+`["10:00-12:00", "18:00-20:00"]`. An empty array means unavailable.
+
+### Block specific dates (holiday, travel)
+
+```js
+booking.blockedDates = ["2026-09-14", "2026-09-15"]
+```
+
+### Add or change a session
+
+Add an object to `booking.sessions`. `id` must be unique — it's what the picker and
+the saved state key on. `duration` is minutes and drives both slot spacing and the
+`.ics` end time. `featured: true` plus `badge: "Most booked"` gives the highlighted card.
+
+### Swap the portrait
+
+```bash
+python3 _source-photos/make-cutout.py _source-photos/new.jpg assets/img/new.webp
+```
+Then point `person.photo` at it. **Check it against the dark theme** — that's where a
+bad cut-out shows. To compare two candidates side by side, put both in
+`person.photoOptions` and set `site.draftMode: true`; a "Compare photo" switcher
+appears on the page.
+
+### Add a credential badge
+
+```bash
+python3 _source-photos/make-badge.py <source> assets/img/badges/<name>.webp
+```
+Then add an entry to `credentials.items` with `kind`, `title`, `issuer`, `year`,
+`note`, `image`, `url`. A missing image file is never fatal — the card falls back to
+a drawn icon.
+
+### Change the reply-time promise
+
+`booking.responseTime` — currently *"usually within two working days"*. This is the
+one commitment the page makes on her behalf. Keep it honest.
+
+### Switch to Calendly for real availability
+
+```js
+booking.schedulingUrl = "https://calendly.com/her-name"
+booking.schedulingEmbed = true
+```
+The built-in picker is replaced automatically. Nothing else changes.
+
+### Switch the primary domain (apex ↔ www)
+
+Change it in Netlify **and** in all six references together — `canonical`, `og:url`,
+`og:image` in `index.html`, plus `site.url`, `sitemap.xml`, `robots.txt`. Netlify's
+primary and the canonical tag **must agree**.
+
+### Stop dragging folders — link the repo
+
+Netlify → *Project configuration → Build & deploy → Link repository* →
+`deepali-jagota-portfolio`, publish directory **`_deploy`**, build command **blank**
+(`_deploy` is committed, so nothing needs building). Then:
+
+```bash
+./make-deploy.sh && git add -A && git commit -m "update content" && git push
+```
+
+Netlify deploys itself, and every deploy is tied to a commit you can roll back.
+
+---
+
+## 18. Current state
+
+### Done
+
+- Site built, content complete, deployed to `deepalijagota.netlify.app`
+- Project made public (Netlify's private-by-default caught it first)
+- "Powered by Netlify" badge turned off
+- Netlify Forms detection enabled and **verified working** — a raw POST returns
+  `200` with Netlify's own "Thank you!" page in ~380 ms
+- Portrait and all five badges processed to transparent WebP
+- Repo pushed, `_deploy` verified clean at 16 files
+
+### Outstanding
+
+1. **The two GoDaddy DNS records** (§10) — the only thing between the site and
+   `deepalijagota.com`.
+2. **One redeploy.** The live build predates the `replyWindow` fix, so the booking
+   summary still shows *"When: (usually within two working days)"* instead of the
+   booked slot. `_deploy` is current; it just hasn't been dragged across.
+3. **Delete three test submissions** from Netlify → Forms → `booking`, labelled
+   *"TEST SUBMISSION - please ignore"*, *"DIAGNOSTIC - ignore"* and *"TEST 2 -
+   please ignore"*. If the email notification was live, Deepali received them.
+4. **Confirm the Forms email notification** is configured to `deepali22aug@gmail.com`
+   — form detection working does not imply the notification exists.
+5. **Optional:** link the repo to Netlify (§17) and stop deploying by hand.
+
+### A loose end outside this folder
+
+An earlier copy of the project still exists at `~/Documents/my_claude/mom-portfolio/`.
+It is several revisions stale — wrong domain, no badges, old photo config — and
+deploying it by mistake would publish an old draft. It can be deleted; it is kept
+nowhere else and nothing references it.
