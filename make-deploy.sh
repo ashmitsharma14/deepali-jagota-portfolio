@@ -8,6 +8,11 @@
 # un-cut-out photos and the processing scripts on the public internet at
 # deepalijagota.com. This copies only what the page actually loads.
 #
+# .git is excluded for a real reason: without it, rsync copies the entire
+# repository - full history, every past revision - into _deploy, and a manual
+# Netlify deploy would serve it at deepalijagota.com/.git/. Anyone could then
+# clone the site's whole history.
+#
 # Uses rsync --delete rather than deleting the folder, so a file removed from
 # the project also disappears from _deploy, without any recursive rm.
 # --delete-excluded matters too: without it, rsync *protects* excluded files that
@@ -19,6 +24,8 @@ cd "$(dirname "$0")"
 mkdir -p _deploy
 
 rsync -a --delete --delete-excluded \
+  --exclude '.git' \
+  --exclude '.gitignore' \
   --exclude '_deploy' \
   --exclude '_source-photos' \
   --exclude '.claude' \
@@ -26,6 +33,7 @@ rsync -a --delete --delete-excluded \
   --exclude 'README.md' \
   --exclude 'README.txt' \
   --exclude 'DEPLOY.md' \
+  --exclude 'KNOWLEDGE.md' \
   --exclude 'serve.js' \
   --exclude 'make-deploy.sh' \
   ./ _deploy/
